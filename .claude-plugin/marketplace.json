@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "imagegen",
+  "description": "Image generation plugin for Claude Code using MaxPlus Responses image_generation.",
+  "owner": {
+    "name": "5nYqnHvk"
+  },
+  "plugins": [
+    {
+      "name": "imagegen",
+      "description": "Generate images through MaxPlus Responses image_generation.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

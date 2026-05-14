@@ -1,0 +1,8 @@
+{
+  "name": "imagegen",
+  "description": "Claude Code image generation skill using MaxPlus Responses image_generation.",
+  "author": {
+    "name": "5nYqnHvk"
+  },
+  "version": "1.0.0"
+}
