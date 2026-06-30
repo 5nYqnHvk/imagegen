@@ -1,6 +1,6 @@
 # imagegen
 
-Claude Code plugin for generating raster images through a local Responses `image_generation` tool wrapper.
+Claude Code plugin for generating and editing raster images through the MaxPlus/OpenAI-compatible Images API (`POST /v1/images/generations`, model `gpt-image-2`).
 
 ## Structure
 
@@ -40,10 +40,10 @@ After install, restart Claude Code if `/imagegen` is not visible yet.
 
 Default backend:
 
-- URL: `https://api.maxplus-ai.cc/v1/responses`
-- model: `gpt-5.5`
-- tool: `[{"type":"image_generation"}]`
-- input: Responses array format
+- URL: `https://api.maxplus-ai.cc/v1/images/generations`
+- model: `gpt-image-2`
+- body: JSON with `prompt`, `n`, `size`, `response_format`, optional `reference_images`
+- requires an API key bound to the **Gen Image** pool
 
 ## Auth
 
@@ -56,12 +56,28 @@ Script reads API key from first available source:
 
 ## Usage
 
+Generate:
+
 ```bash
 python ~/.claude/plugins/marketplaces/imagegen/skills/imagegen/scripts/image_gen.py \
   --prompt "white cat on blue screen background" \
+  --size 1024x1024 \
   --out output/imagegen/cat.png \
   --force
 ```
+
+Edit with reference image(s) (up to 5; proxy forwards to upstream `/v1/images/edits`):
+
+```bash
+python ~/.claude/plugins/marketplaces/imagegen/skills/imagegen/scripts/image_gen.py \
+  --prompt "Keep the product shape, place it on a beige studio surface" \
+  --ref product.png \
+  --output-format jpeg --output-compression 85 \
+  --out output/imagegen/edited.jpg --force
+```
+
+Key options: `--n`, `--size` (`1024x1024` | `2048x2048`), `--response-format` (`b64_json` | `url`),
+`--quality`, `--output-format` (`png`|`jpeg`|`webp`), `--output-compression`, `--ref` (repeatable), `--user`.
 
 From Claude Code after plugin load:
 
